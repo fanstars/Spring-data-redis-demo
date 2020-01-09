@@ -44,6 +44,16 @@ public class IDGenerator {
         }
     }
 
+    public String nextID2() {
+        String key = Prefix+simpleDateFormatThreadLocal.get().format(new Date());
+        if(redisTemplate.opsForValue().setIfAbsent(key, 1L)){
+            return key+"0001";
+        } else {
+            long val = redisTemplate.opsForValue().increment(key, 1);
+            return key+String.format("%04d",val);
+        }
+    }
+
     public String nextIDLua(){
         String key = Prefix+simpleDateFormatThreadLocal.get().format(new Date());
         DefaultRedisScript<String> redisScript =new DefaultRedisScript<>();

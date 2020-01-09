@@ -16,6 +16,27 @@ public class SpringDataRedisTestApplicationTests {
 	private  IDGenerator idGenerator;
 
 	@Test
+	public void test3() throws  InterruptedException {
+		System.out.println("current:" + idGenerator.currentID());
+		Integer threadSize = 5;
+		final CountDownLatch countDownLatch = new CountDownLatch(threadSize);
+		Runnable runnable = new Runnable() {
+			@Override
+			public void run() {
+				for(int i = 0; i < 100; i++) {
+					System.out.println(Thread.currentThread().getName() + ":" + idGenerator.nextID2());
+				}
+				countDownLatch.countDown();
+			}
+		};
+		for(int i = 0; i < threadSize; i++) {
+			new Thread(runnable, "Thread" + i).start();
+		}
+		countDownLatch.await();
+		System.out.println("current:" + idGenerator.currentID());
+	}
+
+	@Test
 	public void test1() throws InterruptedException {
 		System.out.println("current:"+idGenerator.currentID());
 		Integer threadSize =5;
