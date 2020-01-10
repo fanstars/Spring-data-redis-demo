@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
 @RunWith(SpringRunner.class)
@@ -76,5 +78,11 @@ public class SpringDataRedisTestApplicationTests {
 		}
 		countDownLatch.await();
 		System.out.println("current:"+idGenerator.currentID());
+	}
+
+	public static void main(String[] args) {
+		System.out.println("----");
+		Map<String, Object> map = new HashMap<>();
+		map.put("abc", 123);
 	}
 }

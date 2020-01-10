@@ -59,7 +59,7 @@ public class IDGenerator {
         DefaultRedisScript<String> redisScript =new DefaultRedisScript<>();
         redisScript.setLocation(new ClassPathResource("lua/genID.lua"));
         redisScript.setResultType(String.class);
-        //System.out.println(redisScript.getSha1());
+        System.out.println(redisScript.getSha1());
         return redisTemplate.execute(redisScript,(RedisSerializer<?>) redisTemplate.getKeySerializer(),(RedisSerializer<String>)redisTemplate.getKeySerializer(),Lists.newArrayList(key));
     }
 
